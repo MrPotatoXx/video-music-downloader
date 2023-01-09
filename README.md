@@ -19,7 +19,7 @@ Go to the project directory
 Install dependencies
 
 ```bash
-  pip install PyQt5
+  pip install PyQt6
 ```
 
 Start the proyect
