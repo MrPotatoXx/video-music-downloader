@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 import subprocess
-from PyQt5 import QtWidgets
+from PyQt6 import QtWidgets, QtGui
+
 
 class Downloader(QtWidgets.QWidget):
     def __init__(self):
@@ -19,27 +20,27 @@ class Downloader(QtWidgets.QWidget):
         self.path_input = QtWidgets.QLineEdit(self)
         self.path_button = QtWidgets.QPushButton("...", self)
 
-        vbox = QtWidgets.QVBoxLayout()
+        self.layout = QtWidgets.QGridLayout(self)
+        self.layout.addWidget(self.url_label, 0, 0)
+        self.layout.addWidget(self.url_input, 0, 1)
+        self.layout.addWidget(self.format_label, 1, 0)
+        self.layout.addWidget(self.format_combo, 1, 1)
+        self.layout.addWidget(self.path_label, 2, 0)
+        self.layout.addWidget(self.path_input, 2, 1)
+        self.layout.addWidget(self.path_button, 2, 2)
+        self.layout.addWidget(self.download_button, 3, 1)
 
-        vbox.addWidget(self.url_label)
-        vbox.addWidget(self.url_input)
-        vbox.addWidget(self.format_label)
-        vbox.addWidget(self.format_combo)
-
-        hbox = QtWidgets.QHBoxLayout()
-
-        hbox.addWidget(self.path_label)
-        hbox.addWidget(self.path_input)
-        hbox.addWidget(self.path_button)
-        hbox.addWidget(self.download_button)
-
-        vbox.addLayout(hbox)
-
-        self.setLayout(vbox)
+        self.main_layout = QtWidgets.QVBoxLayout(self)
+        self.main_layout.addLayout(self.layout)
+        self.setLayout(self.main_layout)
 
         self.download_button.clicked.connect(self.download)
         self.path_button.clicked.connect(self.selectPath)
 
+        self.setWindowTitle("Downloader")
+        self.setWindowIcon(QtGui.QIcon("./resources/ico.ico"))
+        self.setMinimumSize(400, 150)
+        self.setMaximumSize(500, 100)
         self.show()
 
     def download(self):
@@ -74,4 +75,4 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication([])
     window = Downloader()
 
-    app.exec_()
+    app.exec()
