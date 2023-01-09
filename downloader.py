@@ -11,11 +11,11 @@ class Downloader(QtWidgets.QWidget):
     def initUI(self):
         self.url_label = QtWidgets.QLabel("URL:", self)
         self.url_input = QtWidgets.QLineEdit(self)
-        self.format_label = QtWidgets.QLabel("Formato:", self)
+        self.format_label = QtWidgets.QLabel("Format:", self)
         self.format_combo = QtWidgets.QComboBox(self)
         self.format_combo.addItems(["Audio", "Video"])
-        self.download_button = QtWidgets.QPushButton("Descargar", self)
-        self.path_label = QtWidgets.QLabel("Ruta de descarga:", self)
+        self.download_button = QtWidgets.QPushButton("Download", self)
+        self.path_label = QtWidgets.QLabel("Download path:", self)
         self.path_input = QtWidgets.QLineEdit(self)
         self.path_button = QtWidgets.QPushButton("...", self)
 
@@ -60,12 +60,12 @@ class Downloader(QtWidgets.QWidget):
         result = subprocess.run(["yt-dlp", "--format", fmt, "--output", os.path.join(path, "%(title)s.%(ext)s"), url])
 
         if result.returncode == 0:
-            QtWidgets.QMessageBox.information(self, "Descarga completada", "El archivo se ha descargado correctamente")
+            QtWidgets.QMessageBox.information(self, "Download completed", "The file has been downloaded successfully")
         else:
-            QtWidgets.QMessageBox.critical(self, "Error", "Ocurrió un error durante la descarga")
+            QtWidgets.QMessageBox.critical(self, "Error", "An error occurred during download")
 
     def selectPath(self):
-        path = QtWidgets.QFileDialog.getExistingDirectory(self, "Seleccionar carpeta de descarga")
+        path = QtWidgets.QFileDialog.getExistingDirectory(self, "Select download folder")
 
         if path:
             self.path_input.setText(path)
