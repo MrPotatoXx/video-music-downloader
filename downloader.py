@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-import subprocess
 from PyQt6 import QtWidgets, QtGui
+import yt_dlp
 
 
 class Downloader(QtWidgets.QWidget):
@@ -58,12 +58,14 @@ class Downloader(QtWidgets.QWidget):
         if not path:
             path = "."
 
-        result = subprocess.run(["yt-dlp", "--format", fmt, "--output", os.path.join(path, "%(title)s.%(ext)s"), url])
+        downloader = yt_dlp.YoutubeDL({"format": fmt, "outtmpl": os.path.join(path, "%(title)s.%(ext)s")})
+        result = downloader.download([url])
 
-        if result.returncode == 0:
+        if result == 0:
             QtWidgets.QMessageBox.information(self, "Download completed", "The file has been downloaded successfully")
         else:
             QtWidgets.QMessageBox.critical(self, "Error", "An error occurred during download")
+
 
     def selectPath(self):
         path = QtWidgets.QFileDialog.getExistingDirectory(self, "Select download folder")
