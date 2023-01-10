@@ -20,6 +20,7 @@ Install dependencies
 
 ```bash
   pip install PyQt6
+  pip install yt_dlp
 ```
 
 Start the proyect
