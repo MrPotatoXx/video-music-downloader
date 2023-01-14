@@ -30,9 +30,7 @@ class Downloader(QtWidgets.QWidget):
         self.layout.addWidget(self.path_button, 2, 2)
         self.layout.addWidget(self.download_button, 3, 1)
 
-        self.main_layout = QtWidgets.QVBoxLayout(self)
-        self.main_layout.addLayout(self.layout)
-        self.setLayout(self.main_layout)
+        self.setLayout(self.layout)
 
         self.download_button.clicked.connect(self.download)
         self.path_button.clicked.connect(self.selectPath)
